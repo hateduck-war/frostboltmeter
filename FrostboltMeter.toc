@@ -1,0 +1,7 @@
+## Interface: 11304
+## Title: FrostboltMeter
+## Notes: Odometer for frostbolts
+## Author: Hateduck / Olgruff
+## SavedVariablesPerCharacter: totalFrostbolts
+FrostboltMeter.lua
+FrostboltMeter.xml

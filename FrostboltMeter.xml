@@ -1,0 +1,73 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+                   ..\..\FrameXML\UI.xsd">
+
+	<Script file="FrostboltMeterMain.lua"/>
+	
+	
+	
+	
+	<Frame name="FrostboltMeterMain" parent="UIParent" movable="true" enableMouse="true">
+
+		<Scripts>
+			<OnLoad>
+				FrostboltMeterMain_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				FrostboltMeterMain_OnEvent(self, event, ...);
+			</OnEvent>
+		</Scripts>
+		
+		<Anchors>
+			<Anchor point="TOP" relativeTo="UIParent"/>
+		</Anchors>
+
+		<Size>
+			<AbsDimension x="125" y="52"/>
+		</Size>
+
+		
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+
+
+		<Layers>
+			<Layer level="OVERLAY">
+					<Scripts>
+						<OnLoad>
+
+						</OnLoad>
+						<OnEvent>
+							FrostboltMeterMain_OnEvent(self, event, ...);
+						</OnEvent>
+					</Scripts>
+					<Texture file="Interface\ICONS\Spell_Frost_Frostbolt02">
+						<Size><AbsDimension x="25" y="25"/></Size>
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset><AbsDimension x="12" y="0"/></Offset>
+							</Anchor>
+						</Anchors>
+					</Texture>
+
+					<FontString name="FrostboltCount" inherits="NumberFontNormalLarge" >
+						<Anchors>
+							<Anchor point="CENTER" relativeTo="$parent">
+								<Offset><AbsDimension x="10" y="-1"/></Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+			</Layer>
+		</Layers>	
+	</Frame>
+</Ui><!-- QuestFontGameFontNormalLarge NumberFontNormalLarge-->
