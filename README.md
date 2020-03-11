@@ -1,2 +1,2 @@
-# frostboltmeter
+# Frostbolt Meter
 Odometer for your WoW Mage
