@@ -1,5 +1,5 @@
 -- Frostbolt Meter
--- 7 Mar 2020
+-- 14 Mar 2020
 -- Olgruff / Hateduck fun addons for fun
 
 -- Global Saved Variables
@@ -22,10 +22,6 @@ function SlashCmdList.FROSTBOLTMETER(msg, editbox)
 	end
 end
 
-function FrostboltMeter_ResetStats()
-	totalFrostbolts = 0
-	FrostboltCount:SetText(string.format("%09d",totalFrostbolts))
-end
 
 
 function FrostboltMeterMain_OnLoad()
@@ -36,6 +32,39 @@ function FrostboltMeterMain_OnLoad()
 	FrostboltMeterMain:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	print("Loaded Frostbolt Odometer!")
+end
+
+function ResetButton_OnClick()
+	if (FrostboltMeterMainResetYes:IsVisible()) then
+		ResetConfirm_Hide()
+	else
+		ResetConfirm_Show()
+	end
+end
+
+function ResetConfirm_Show()
+	FrostboltMeterMainResetYes:Show()
+	FrostboltMeterMainResetNo:Show()
+	FrostboltMeterMainResetText:Show()
+end
+
+function ResetConfirm_Hide()
+	FrostboltMeterMainResetYes:Hide()
+	FrostboltMeterMainResetNo:Hide()
+	FrostboltMeterMainResetText:Hide()
+end
+
+function FrostboltMeter_ResetStats()
+	totalFrostbolts = 0
+	FrostboltCount:SetText(string.format("%09d",totalFrostbolts))
+end
+
+function FrostboltMeter_OnEnter(self)
+	FrostboltMeterMainReset:Show()
+end
+
+function FrostboltMeter_OnLeave(self)
+	FrostboltMeterMainReset:Hide()
 end
 
 function FrostboltMeterMain_OnEvent(self, event, ...)
@@ -71,8 +100,3 @@ end
 function FrostBoltMeterStopMove()
   FrostboltMeterMain:StopMovingOrSizing(); 
 end
-
-
-
-
-

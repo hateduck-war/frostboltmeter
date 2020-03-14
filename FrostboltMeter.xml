@@ -11,12 +11,10 @@
 	<Frame name="FrostboltMeterMain" parent="UIParent" movable="true" enableMouse="true">
 
 		<Scripts>
-			<OnLoad>
-				FrostboltMeterMain_OnLoad(self);
-			</OnLoad>
-			<OnEvent>
-				FrostboltMeterMain_OnEvent(self, event, ...);
-			</OnEvent>
+			<OnLoad> FrostboltMeterMain_OnLoad(self) </OnLoad>
+			<OnEvent> FrostboltMeterMain_OnEvent(self, event, ...) </OnEvent>
+			<OnEnter> FrostboltMeter_OnEnter(self) </OnEnter>
+			<OnLeave> FrostboltMeter_OnLeave(self) </OnLeave>
 		</Scripts>
 		
 		<Anchors>
@@ -24,50 +22,107 @@
 		</Anchors>
 
 		<Size>
-			<AbsDimension x="125" y="52"/>
+			<AbsDimension x="122" y="28"/>
 		</Size>
 
-		
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11"/>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false">
+<!-- 			<BackgroundInsets>
+				<AbsInset left="0" right="0" top="0" bottom="0"/>
 			</BackgroundInsets>
+			
 			<TileSize>
-				<AbsValue val="32"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32"/>
-			</EdgeSize>
+				<AbsValue val="24"/>
+			</TileSize> -->
 		</Backdrop>
-
 
 		<Layers>
 			<Layer level="OVERLAY">
-					<Scripts>
-						<OnLoad>
+				<!-- FROSTBOLT ICON -->
+				<Texture file="Interface\ICONS\Spell_Frost_Frostbolt02">
+					<Size><AbsDimension x="25" y="25"/></Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeT="$parent" relativePoint="LEFT"/>
+					</Anchors>
+				</Texture>
+				<!-- FONT STRING TO HOLD THE ODOMTER NUMBERS-->
+				<FontString name="FrostboltCount" inherits="NumberFontNormalLarge" >
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="$parent">
+							<Offset><AbsDimension x="10" y="0"/></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
 
-						</OnLoad>
-						<OnEvent>
-							FrostboltMeterMain_OnEvent(self, event, ...);
-						</OnEvent>
-					</Scripts>
-					<Texture file="Interface\ICONS\Spell_Frost_Frostbolt02">
-						<Size><AbsDimension x="25" y="25"/></Size>
-						<Anchors>
-							<Anchor point="LEFT">
-								<Offset><AbsDimension x="12" y="0"/></Offset>
-							</Anchor>
-						</Anchors>
-					</Texture>
-
-					<FontString name="FrostboltCount" inherits="NumberFontNormalLarge" >
-						<Anchors>
-							<Anchor point="CENTER" relativeTo="$parent">
-								<Offset><AbsDimension x="10" y="-1"/></Offset>
-							</Anchor>
-						</Anchors>
-					</FontString>
+				<FontString name="$parentResetText" hidden="true" inherits="GameFontNormal" text="Reset?">
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+							<Offset><AbsDimension x="0" y="0"/></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
 			</Layer>
 		</Layers>	
+
+		<Frames>
+
+			<Button name="$parentReset" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnEvent></OnEvent>
+					<OnClick> ResetButton_OnClick() </OnClick>
+					<OnEnter> FrostboltMeter_OnEnter(self) </OnEnter>
+					<OnLeave> FrostboltMeter_OnLeave(self) </OnLeave>
+				</Scripts>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT"/>
+				</Anchors>
+				<Size>
+					<AbsDimension x="15" y="15"/>
+				</Size>
+	
+			</Button>
+
+
+			<!-- The "YES" Button in case you are sure you want to reset your meter -->
+			<Button name="$parentResetYes" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="Y">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnEvent></OnEvent>
+					<OnClick>
+						FrostboltMeter_ResetStats();
+						ResetConfirm_Hide();
+					</OnClick>
+				</Scripts>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentReset" relativePoint="BOTTOMLEFT">
+						<Offset><AbsDimension x="-7" y="-15"/></Offset>
+					</Anchor>
+					
+				</Anchors>
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+			</Button>
+
+			<!-- The "NO" Button in case you don't want to reset your meter -->
+			<Button name="$parentResetNo" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate" text="N">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnEvent></OnEvent>
+					<OnClick>
+						ResetConfirm_Hide();
+					</OnClick>
+				</Scripts>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentReset" relativePoint="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-24" y="-15"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+			</Button>
+
+		</Frames>
 	</Frame>
-</Ui><!-- QuestFontGameFontNormalLarge NumberFontNormalLarge-->
+</Ui>
