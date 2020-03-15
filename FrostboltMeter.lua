@@ -5,6 +5,7 @@
 -- Global Saved Variables
 -- Saved when logout happens
 totalFrostbolts = 0
+zeroPadString = "%09d"
 
 --  slash command to toggle on and off
 SLASH_FROSTBOLTMETER1 = '/fbm'
@@ -25,7 +26,7 @@ end
 
 
 function FrostboltMeterMain_OnLoad()
-	FrostboltMeterMain:Show()
+	-- FrostboltMeterMain:Show()
 	FrostboltMeterMain:SetScript("OnMouseDown", FrosboltMeterStartMove)
 	FrostboltMeterMain:SetScript("OnMouseUp", FrostBoltMeterStopMove)
 	FrostboltMeterMain:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
@@ -54,17 +55,58 @@ function ResetConfirm_Hide()
 	FrostboltMeterMainResetText:Hide()
 end
 
+function ZeroPadButton_OnClick()
+	if (FrostboltMeterMainZeroPadYes:IsVisible()) then
+		ZeroPadConfirm_Hide()
+	else
+		ZeroPadConfirm_Show()
+	end
+end
+
+
+function ZeroPadConfirm_Show()
+	FrostboltMeterMainZeroPadYes:Show()
+	FrostboltMeterMainZeroPadNo:Show()
+	FrostboltMeterMainZeroPadText:Show()
+end
+
+function ZeroPadConfirm_Hide()
+	FrostboltMeterMainZeroPadYes:Hide()
+	FrostboltMeterMainZeroPadNo:Hide()
+	FrostboltMeterMainZeroPadText:Hide()
+end
+
 function FrostboltMeter_ResetStats()
 	totalFrostbolts = 0
-	FrostboltCount:SetText(string.format("%09d",totalFrostbolts))
+	FrostboltCount:SetText(string.format(zeroPadString,totalFrostbolts))
 end
+
+-- Turn on zero padding if not enabled
+-- (adds extra zeros to the left)
+function ZeroPadEnable()
+	if (zeroPadString ~= "%09d") then
+		zeroPadString = "%09d"
+	end
+	FrostboltCount:SetText(string.format(zeroPadString,totalFrostbolts))
+end
+
+-- Turn off zero padding 
+function ZeroPadDisable()
+	if (zeroPadString == "%09d") then
+		zeroPadString = "%d"
+	end
+	FrostboltCount:SetText(string.format(zeroPadString,totalFrostbolts))
+end
+
 
 function FrostboltMeter_OnEnter(self)
 	FrostboltMeterMainReset:Show()
+	FrostboltMeterMainZeroPad:Show()
 end
 
 function FrostboltMeter_OnLeave(self)
 	FrostboltMeterMainReset:Hide()
+	FrostboltMeterMainZeroPad:Hide()
 end
 
 function FrostboltMeterMain_OnEvent(self, event, ...)
@@ -72,7 +114,7 @@ function FrostboltMeterMain_OnEvent(self, event, ...)
 	
 	if ( event == "PLAYER_ENTERING_WORLD") then
 		--print("Loading Variable: Total Frostbolts: "..totalFrostbolts)
-		FrostboltCount:SetText(string.format("%09d",totalFrostbolts))
+		FrostboltCount:SetText(string.format(zeroPadString,totalFrostbolts))
 	end
 
 	if (event == "UNIT_SPELLCAST_SUCCEEDED") then
@@ -86,7 +128,7 @@ function FrostboltMeterMain_OnEvent(self, event, ...)
 			-- print("Yup we got a bolt: "..spellington)
 			-- print(string.format("%09d", totalFrostbolts))
 			totalFrostbolts = totalFrostbolts + 1
-			FrostboltCount:SetText(string.format("%09d",totalFrostbolts))
+			FrostboltCount:SetText(string.format(zeroPadString,totalFrostbolts))
 		end
 	end
 

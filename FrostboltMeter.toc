@@ -2,6 +2,6 @@
 ## Title: FrostboltMeter
 ## Notes: Odometer for frostbolts
 ## Author: Hateduck / Olgruff
-## SavedVariablesPerCharacter: totalFrostbolts
+## SavedVariablesPerCharacter: totalFrostbolts, zeroPadString
 FrostboltMeter.lua
 FrostboltMeter.xml

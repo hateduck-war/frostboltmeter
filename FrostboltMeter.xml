@@ -22,18 +22,10 @@
 		</Anchors>
 
 		<Size>
-			<AbsDimension x="122" y="28"/>
+			<AbsDimension x="124" y="28"/>
 		</Size>
 
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false">
-<!-- 			<BackgroundInsets>
-				<AbsInset left="0" right="0" top="0" bottom="0"/>
-			</BackgroundInsets>
-			
-			<TileSize>
-				<AbsValue val="24"/>
-			</TileSize> -->
-		</Backdrop>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false"/>
 
 		<Layers>
 			<Layer level="OVERLAY">
@@ -53,9 +45,19 @@
 					</Anchors>
 				</FontString>
 
+				<!-- Font String that appears when clicking bottom right reset button -->
 				<FontString name="$parentResetText" hidden="true" inherits="GameFontNormal" text="Reset?">
 					<Anchors>
 						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+							<Offset><AbsDimension x="0" y="0"/></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<!-- Font string that appears in bottom left for 0 padding -->
+				<FontString name="$parentZeroPadText" hidden="true" inherits="GameFontNormal" text="Pad Zeros?">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
 							<Offset><AbsDimension x="0" y="0"/></Offset>
 						</Anchor>
 					</Anchors>
@@ -64,6 +66,24 @@
 		</Layers>	
 
 		<Frames>
+
+			<Button name="$parentZeroPad" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnEvent></OnEvent>
+					<OnClick> ZeroPadButton_OnClick() </OnClick>
+					<OnEnter> FrostboltMeter_OnEnter(self) </OnEnter>
+					<OnLeave> FrostboltMeter_OnLeave(self) </OnLeave>
+				</Scripts>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
+						<Offset><AbsDimension x="23" y="0"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="14" y="14"/>
+				</Size>
+			</Button>
 
 			<Button name="$parentReset" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate">
 				<Scripts>
@@ -77,9 +97,48 @@
 					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT"/>
 				</Anchors>
 				<Size>
-					<AbsDimension x="15" y="15"/>
+					<AbsDimension x="14" y="14"/>
 				</Size>
 	
+			</Button>
+
+			<Button name="$parentZeroPadYes" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="Y">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnEvent></OnEvent>
+					<OnClick>
+						ZeroPadEnable();
+						ZeroPadConfirm_Hide();
+					</OnClick>
+				</Scripts>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentZeroPad" relativePoint="BOTTOMLEFT">
+						<Offset><AbsDimension x="0" y="-15"/></Offset>
+					</Anchor>
+					
+				</Anchors>
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+			</Button>
+
+			<Button name="$parentZeroPadNo" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="N">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnEvent></OnEvent>
+					<OnClick>
+						ZeroPadDisable();
+						ZeroPadConfirm_Hide();
+					</OnClick>
+				</Scripts>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentZeroPad" relativePoint="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-17" y="-15"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
 			</Button>
 
 
