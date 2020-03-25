@@ -7,7 +7,30 @@
 	
 	
 	
-	
+	<Font name="AchieveLargeWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
+		<Shadow x="1" y="-1">
+			<Color r="0" g="0.4" b="1"/>
+		</Shadow>
+		<Color r="1" g="1" b="1"/>
+		<FontHeight>
+			<AbsValue val="26"/>
+		</FontHeight>
+	</Font>
+
+	<Font name="AchieveNormalWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
+		<Color r="1" g="1" b="1"/>
+		<FontHeight>
+			<AbsValue val="18"/>
+		</FontHeight>
+	</Font>
+
+	<Font name="AchieveNormalBlue" font="Fonts\MORPHEUS.ttf" virtual="true">
+		<Color r="0" g="0.7" b="0.8"/>
+		<FontHeight>
+			<AbsValue val="18"/>
+		</FontHeight>
+	</Font>
+
 	<Frame name="FrostboltMeterMain" parent="UIParent" movable="true" enableMouse="true">
 
 		<Scripts>
@@ -181,6 +204,90 @@
 					<AbsDimension x="22" y="22"/>
 				</Size>
 			</Button>
+
+			<Frame name="$parentAchievement" hidden="true" parent="FrostboltMeterMain" enableMouse="true" movable="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="UIParent"/>
+				</Anchors>
+				<Size>
+					<AbsDimension x="512" y="200"/>
+				</Size>
+				
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false"/>
+				<Frames>
+					<Button name="$parentClose" enableMouse="true" inherits="UIPanelButtonTemplate" text=" x">
+						<Scripts>
+						<OnLoad></OnLoad>
+						<OnEvent></OnEvent>
+						<OnClick>
+							FrostboltMeterMainAchievement:Hide();
+						</OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+								<Offset><AbsDimension x="0" y="0"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+					</Button>
+				</Frames>
+
+				<Layers>
+					<Layer level="BORDER">
+						<Texture file="Interface\ICONS\Spell_Frost_Frostbolt">
+							<Size><AbsDimension x="49" y="49"/></Size>
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER">
+									<Offset><AbsDimension x="2" y="99"/></Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+
+
+					</Layer>
+
+					<Layer level="ARTWORK">
+						<Texture file="Interface\ExtraButton\GarrZoneAbility-MageTower">
+							<Size><AbsDimension x="256" y="128"/></Size>
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER">
+									<Offset><AbsDimension x="0" y="100"/></Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+
+						<Texture name="AchieveTitle" file="Interface\QUESTFRAME\UI-QuestLogTitleHighlight">
+							<Size><AbsDimension x="315" y="28"/></Size>
+							<Anchors>
+								<Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM">
+									<Offset><AbsDimension x="0" y="0"/></Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+
+						<FontString name="AchieveTitleString" inherits="AchieveLargeWhite" text="Frostbolts">
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="AchieveTitle" relativePoint="CENTER">
+									<Offset><AbsDimension x="10" y="0"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<FontString name="AchieveText" inherits="AchieveNormalBlue">
+							<Size>
+								<AbsDimension x="500" y="180"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER">
+									<Offset><AbsDimension x="0" y="-6"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
 
 		</Frames>
 	</Frame>

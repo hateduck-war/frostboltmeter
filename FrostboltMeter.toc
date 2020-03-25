@@ -5,3 +5,4 @@
 ## SavedVariablesPerCharacter: totalFrostbolts, zeroPadString
 FrostboltMeter.lua
 FrostboltMeter.xml
+FrostboltMeterAchieves.lua

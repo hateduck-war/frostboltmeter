@@ -4,8 +4,13 @@
 
 -- Global Saved Variables
 -- Saved when logout happens
+-- actual 4031
 totalFrostbolts = 0
 zeroPadString = "%09d"
+
+-- Table to hold Achiement Nums
+
+frostyAchieveNums = {100, 500, 1000, 2000, 4000, 8000}
 
 --  slash command to toggle on and off
 SLASH_FROSTBOLTMETER1 = '/fbm'
@@ -25,10 +30,12 @@ end
 
 
 
-function FrostboltMeterMain_OnLoad()
+function FrostboltMeterMain_OnLoad(self)
 	-- FrostboltMeterMain:Show()
 	FrostboltMeterMain:SetScript("OnMouseDown", FrosboltMeterStartMove)
 	FrostboltMeterMain:SetScript("OnMouseUp", FrostBoltMeterStopMove)
+	FrostboltMeterMainAchievement:SetScript("OnMouseDown", FrosboltMeterStartMove)
+	FrostboltMeterMainAchievement:SetScript("OnMouseUp", FrostBoltMeterStopMove)
 	FrostboltMeterMain:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	FrostboltMeterMain:RegisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -129,16 +136,29 @@ function FrostboltMeterMain_OnEvent(self, event, ...)
 			-- print(string.format("%09d", totalFrostbolts))
 			totalFrostbolts = totalFrostbolts + 1
 			FrostboltCount:SetText(string.format(zeroPadString,totalFrostbolts))
+
+			for i,value in pairs(frostyAchieveNums) do
+				print("bolts: "..totalFrostbolts.." table: "..value)
+				if (value == totalFrostbolts) then
+					fire_achievement(totalFrostbolts)
+				end
+			end
 		end
 	end
+end
 
-
+function fire_achievement(num_bolts)
+	AchieveTitleString:SetText(num_bolts.." Frostbolts!")
+	AchieveText:SetText(frostyAchieveText[num_bolts])
+	FrostboltMeterMainAchievement:Show()
+	PlaySoundFile("Interface\\AddOns\\FrostboltMeter\\sounds\\fbm_boom_crash_thunder.ogg", "Master")
 end
 
 ---------Functions to move the window around
-function FrosboltMeterStartMove()
-  FrostboltMeterMain:StartMoving();
+function FrosboltMeterStartMove(self)
+  self:StartMoving();
 end
-function FrostBoltMeterStopMove()
-  FrostboltMeterMain:StopMovingOrSizing(); 
+function FrostBoltMeterStopMove(self)
+  self:StopMovingOrSizing(); 
 end
+--FrostboltMeterMain
