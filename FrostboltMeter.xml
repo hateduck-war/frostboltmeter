@@ -6,8 +6,12 @@
 	<Script file="FrostboltMeterMain.lua"/>
 	
 	
-	
-	<Font name="AchieveLargeWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
+	<!-- 
+	========================
+		Font Templates 
+	========================
+	-->
+	<Font name="AchieveShadowLargeWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
 		<Shadow x="1" y="-1">
 			<Color r="0" g="0.4" b="1"/>
 		</Shadow>
@@ -17,6 +21,16 @@
 		</FontHeight>
 	</Font>
 
+	<Font name="AchieveShadowNormalWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
+		<Shadow x="1" y="-1">
+			<Color r="0" g="0.4" b="1"/>
+		</Shadow>
+		<Color r="1" g="1" b="1"/>
+		<FontHeight>
+			<AbsValue val="18"/>
+		</FontHeight>
+	</Font>
+	
 	<Font name="AchieveNormalWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
 		<Color r="1" g="1" b="1"/>
 		<FontHeight>
@@ -31,6 +45,67 @@
 		</FontHeight>
 	</Font>
 
+	<Font name="MenuItemHeaderWhite" font="Fonts\MORPHEUS.ttf" virtual="true">
+		<Color r="1" g="1" b="1"/>
+		<FontHeight>
+			<AbsValue val="14"/>
+		</FontHeight>
+	</Font>
+
+	<Font name="MenuItemBlue" inherits="GameFontNormal" virtual="true">
+		<Color r="0" g="0.7" b="0.8"/>
+		<FontHeight>
+			<AbsValue val="12"/>
+		</FontHeight>
+	</Font>
+
+	<Font name="MenuItemWhite" inherits="GameFontNormal" virtual="true">
+		<Color r="1" g="1" b="1"/>
+		<FontHeight>
+			<AbsValue val="12"/>
+		</FontHeight>
+	</Font>
+
+	<!-- 
+	================================================
+		Achievement Configuration Panel Templates 
+	================================================
+	-->
+	<Frame name="UnlockConfigBase" virtual="true">
+		<Scripts>
+			<OnLoad></OnLoad>
+			<OnEvent></OnEvent>
+			<OnClick></OnClick>
+		</Scripts>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent"/>
+		</Anchors>
+		<Size>
+			<AbsDimension x="150" y="130"/>
+		</Size>
+		<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" tile="false"/> -->
+		<Backdrop bgFile="Interface\TALENTFRAME\MageFrost-TopLeft" tile="false"/>
+		
+
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<!-- Header for basic config info -->
+				<FontString name="$parentHeader" inherits="MenuItemWhite" text="">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset><AbsDimension x="0" y="0"/></Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<!--
+		Main Frame for frostbolt meter. Also contains the texture and fontstring
+		for the frostbolt icon and number of frostbolts casted
+
+	-->
 	<Frame name="FrostboltMeterMain" parent="UIParent" movable="true" enableMouse="true">
 
 		<Scripts>
@@ -48,6 +123,7 @@
 			<AbsDimension x="124" y="28"/>
 		</Size>
 
+		<!-- Black square background. Slightly transparent alpha -->
 		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false"/>
 
 		<Layers>
@@ -67,52 +143,15 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-
-				<!-- Font String that appears when clicking bottom right reset button -->
-				<FontString name="$parentResetText" hidden="true" inherits="GameFontNormal" text="Reset?">
-					<Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
-							<Offset><AbsDimension x="0" y="0"/></Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-
-				<!-- Font string that appears in bottom left for 0 padding -->
-				<FontString name="$parentZeroPadText" hidden="true" inherits="GameFontNormal" text="Pad Zeros?">
-					<Anchors>
-						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
-							<Offset><AbsDimension x="0" y="0"/></Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
 			</Layer>
 		</Layers>	
 
 		<Frames>
-
-			<Button name="$parentZeroPad" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate">
+			<Button name="$parentConfigButton" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate">
 				<Scripts>
 					<OnLoad></OnLoad>
 					<OnEvent></OnEvent>
-					<OnClick> ZeroPadButton_OnClick() </OnClick>
-					<OnEnter> FrostboltMeter_OnEnter(self) </OnEnter>
-					<OnLeave> FrostboltMeter_OnLeave(self) </OnLeave>
-				</Scripts>
-				<Anchors>
-					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
-						<Offset><AbsDimension x="23" y="0"/></Offset>
-					</Anchor>
-				</Anchors>
-				<Size>
-					<AbsDimension x="14" y="14"/>
-				</Size>
-			</Button>
-
-			<Button name="$parentReset" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate">
-				<Scripts>
-					<OnLoad></OnLoad>
-					<OnEvent></OnEvent>
-					<OnClick> ResetButton_OnClick() </OnClick>
+					<OnClick> ConfigButton_OnClick() </OnClick>
 					<OnEnter> FrostboltMeter_OnEnter(self) </OnEnter>
 					<OnLeave> FrostboltMeter_OnLeave(self) </OnLeave>
 				</Scripts>
@@ -125,89 +164,12 @@
 	
 			</Button>
 
-			<Button name="$parentZeroPadYes" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="Y">
-				<Scripts>
-					<OnLoad></OnLoad>
-					<OnEvent></OnEvent>
-					<OnClick>
-						ZeroPadEnable();
-						ZeroPadConfirm_Hide();
-					</OnClick>
-				</Scripts>
-				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="$parentZeroPad" relativePoint="BOTTOMLEFT">
-						<Offset><AbsDimension x="0" y="-15"/></Offset>
-					</Anchor>
-					
-				</Anchors>
-				<Size>
-					<AbsDimension x="22" y="22"/>
-				</Size>
-			</Button>
-
-			<Button name="$parentZeroPadNo" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="N">
-				<Scripts>
-					<OnLoad></OnLoad>
-					<OnEvent></OnEvent>
-					<OnClick>
-						ZeroPadDisable();
-						ZeroPadConfirm_Hide();
-					</OnClick>
-				</Scripts>
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parentZeroPad" relativePoint="BOTTOMRIGHT">
-						<Offset><AbsDimension x="-17" y="-15"/></Offset>
-					</Anchor>
-				</Anchors>
-				<Size>
-					<AbsDimension x="22" y="22"/>
-				</Size>
-			</Button>
-
-
-			<!-- The "YES" Button in case you are sure you want to reset your meter -->
-			<Button name="$parentResetYes" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="Y">
-				<Scripts>
-					<OnLoad></OnLoad>
-					<OnEvent></OnEvent>
-					<OnClick>
-						FrostboltMeter_ResetStats();
-						ResetConfirm_Hide();
-					</OnClick>
-				</Scripts>
-				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="$parentReset" relativePoint="BOTTOMLEFT">
-						<Offset><AbsDimension x="-7" y="-15"/></Offset>
-					</Anchor>
-					
-				</Anchors>
-				<Size>
-					<AbsDimension x="22" y="22"/>
-				</Size>
-			</Button>
-
-			<!-- The "NO" Button in case you don't want to reset your meter -->
-			<Button name="$parentResetNo" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate" text="N">
-				<Scripts>
-					<OnLoad></OnLoad>
-					<OnEvent></OnEvent>
-					<OnClick>
-						ResetConfirm_Hide();
-					</OnClick>
-				</Scripts>
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="$parentReset" relativePoint="BOTTOMRIGHT">
-						<Offset><AbsDimension x="-24" y="-15"/></Offset>
-					</Anchor>
-				</Anchors>
-				<Size>
-					<AbsDimension x="22" y="22"/>
-				</Size>
-			</Button>
 
 			<Frame name="$parentAchievement" hidden="true" parent="FrostboltMeterMain" enableMouse="true" movable="true">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="UIParent"/>
+					<Anchor point="TOP" relativeTo="UIParent">
+						<Offset><AbsDimension x="0" y="-155"/></Offset>
+					</Anchor>
 				</Anchors>
 				<Size>
 					<AbsDimension x="512" y="200"/>
@@ -267,7 +229,7 @@
 							</Anchors>
 						</Texture>
 
-						<FontString name="AchieveTitleString" inherits="AchieveLargeWhite" text="Frostbolts">
+						<FontString name="AchieveTitleString" inherits="AchieveShadowLargeWhite" text="Frostbolts">
 							<Anchors>
 								<Anchor point="CENTER" relativeTo="AchieveTitle" relativePoint="CENTER">
 									<Offset><AbsDimension x="10" y="0"/></Offset>
@@ -289,6 +251,343 @@
 				</Layers>
 			</Frame>
 
-		</Frames>
-	</Frame>
-</Ui>
+			<!-- Configuration Panel -->
+			<Frame name="$parentConfigure" hidden="true" parent="FrostboltMeterMain" enableMouse="true" movable="true">
+				<Scripts>
+					<OnLoad></OnLoad>
+					<OnShow>FrostboltMeterConfigure_OnLoad(self)</OnShow>
+					<OnEvent></OnEvent>
+					<OnClick></OnClick>
+				</Scripts>
+
+				<Anchors>
+					<Anchor point="CENTER"/>
+				</Anchors>
+				<Size>
+					<AbsDimension x="600" y="300"/>
+				</Size>
+				
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false"/>
+				
+				<Frames>
+					<Button name="$parentClose" enableMouse="true" inherits="UIPanelButtonTemplate" text=" X ">
+						<Scripts>
+							<OnLoad></OnLoad>
+							<OnEvent></OnEvent>
+							<OnClick>
+								FrostboltMeterMainConfigure:Hide();
+							</OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+								<Offset><AbsDimension x="0" y="0"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+					</Button>
+
+					<Button name="$parentResetButton" enableMouse="true" inherits="UIPanelButtonTemplate">
+						<Scripts>
+							<OnLoad></OnLoad>
+							<OnEvent></OnEvent>
+							<OnClick> ResetButton_OnClick() </OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+								<Offset><AbsDimension x="6" y="-55"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="14" y="14"/>
+						</Size>
+					</Button>
+
+					<Button name="$parentZeroPadButton" enableMouse="true" inherits="UIPanelButtonTemplate">
+						<Scripts>
+							<OnLoad></OnLoad>
+							<OnEvent></OnEvent>
+							<OnClick> ZeroPadButton_OnClick() </OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentResetButton" relativePoint="BOTTOMLEFT">
+								<Offset><AbsDimension x="0" y="-5"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="14" y="14"/>
+						</Size>
+					</Button>
+
+					<Button name="$parentToggleAchieves" enableMouse="true" inherits="UIPanelButtonTemplate">
+						<Scripts>
+							<OnLoad></OnLoad>
+							<OnEvent></OnEvent>
+							<OnClick> ToggleAchieves_OnClick()  </OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentZeroPadButton" relativePoint="BOTTOMLEFT">
+								<Offset><AbsDimension x="0" y="-5"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="14" y="14"/>
+						</Size>
+					</Button>
+
+					<!-- The "YES" Button in case you are sure you want to reset your meter -->
+					<Button name="$parentResetYes" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate"  text="Y">
+						<Scripts>
+							<OnLoad></OnLoad>
+							<OnEvent></OnEvent>
+							<OnClick>
+								FrostboltMeter_ResetStats();
+								FrostboltMeterMainConfigureResetYes:Hide();
+								FrostboltMeterMainConfigureResetNo:Hide();
+							</OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentResetButton" relativePoint="RIGHT">
+								<Offset><AbsDimension x="50" y="0"/></Offset>
+							</Anchor>
+							
+						</Anchors>
+						<Size>
+							<AbsDimension x="18" y="18"/>
+						</Size>
+					</Button>
+		
+					<!-- The "NO" Button in case you don't want to reset your meter -->
+					<Button name="$parentResetNo" hidden="true" enableMouse="true" inherits="UIPanelButtonTemplate" text="N">
+						<Scripts>
+							<OnLoad></OnLoad>
+							<OnEvent></OnEvent>
+							<OnClick>
+								FrostboltMeterMainConfigureResetYes:Hide();
+								FrostboltMeterMainConfigureResetNo:Hide();
+							</OnClick>
+						</Scripts>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentResetYes" relativePoint="RIGHT">
+								<Offset><AbsDimension x="0" y="0"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="18" y="18"/>
+						</Size>
+					</Button>
+
+					<Frame name="$parentAchievement1000Locked" hidden="true" inherits="UnlockConfigBase">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent">
+								<Offset><AbsDimension x="6" y="-155"/></Offset>
+							</Anchor>
+						</Anchors>
+
+						<Layers>
+							<Layer level="ARTWORK">
+								
+								<!-- Label For Unlock Frame 100 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="1000 - LOCKED!">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+					</Frame>
+
+					<!-- 1000 Bolts Achieve Config -->
+					<Frame name="$parentAchievement1000" hidden="true" inherits="UnlockConfigBase">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent">
+								<Offset><AbsDimension x="6" y="-155"/></Offset>
+							</Anchor>
+						</Anchors>
+
+						<Frames>
+							<Button name="$parentFont1" enableMouse="true" inherits="UIPanelButtonTemplate">
+								<Scripts>
+									<OnClick> SetMeterFont("NumberFontNormalLarge") </OnClick>
+								</Scripts>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+										<Offset><AbsDimension x="0" y="-35"/></Offset>
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="14" y="14"/>
+								</Size>
+							</Button>
+
+							<Button name="$parentFont2" enableMouse="true" inherits="UIPanelButtonTemplate">
+								<Scripts>
+									<OnClick>SetMeterFont("MenuItemBlue") </OnClick>
+								</Scripts>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="$parentFont1" relativePoint="BOTTOMLEFT">
+										<Offset><AbsDimension x="0" y="-5"/></Offset>
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="14" y="14"/>
+								</Size>
+							</Button>
+
+							<Button name="$parentFont3" enableMouse="true" inherits="UIPanelButtonTemplate">
+								<Scripts>
+									<OnClick> SetMeterFont("MenuItemWhite") </OnClick>
+								</Scripts>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="$parentFont2" relativePoint="BOTTOMLEFT">
+										<Offset><AbsDimension x="0" y="-5"/></Offset>
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="14" y="14"/>
+								</Size>
+							</Button>
+
+							<Button name="$parentFont4" enableMouse="true" inherits="UIPanelButtonTemplate">
+								<Scripts>
+									<OnClick> SetMeterFont("AchieveShadowNormalWhite") </OnClick>
+								</Scripts>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="$parentFont3" relativePoint="BOTTOMLEFT">
+										<Offset><AbsDimension x="0" y="-5"/></Offset>
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="14" y="14"/>
+								</Size>
+							</Button>
+						</Frames> <!-- $parentAchieve100 -->
+						
+						<Layers>
+							<Layer level="ARTWORK">
+								
+								<!-- Label For Unlock Frame 1000 bolts! -->
+								<FontString name="$parentUnlockLabel" inherits="NumberFontNormalLarge" text="1000 Frostbolts">
+									<Anchors>
+										<Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
+											<Offset><AbsDimension x="0" y="-10"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+
+								<!-- Labels for font choices -->
+								<!-- Label 1 -->
+								<FontString name="$parentFont1Label" inherits="NumberFontNormalLarge" text="Default Font">
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentFont1" relativePoint="RIGHT">
+											<Offset><AbsDimension x="2" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+
+								<!-- Label 2 -->
+								<FontString name="$parentFont2Label" inherits="MenuItemBlue" text="Menu Item Blue">
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentFont2" relativePoint="RIGHT">
+											<Offset><AbsDimension x="2" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+
+								<!-- Label 3 -->
+								<FontString name="$parentFont3Label" inherits="MenuItemWhite" text="Menu Item White">
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentFont3" relativePoint="RIGHT">
+											<Offset><AbsDimension x="2" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+
+								<!-- Label 3 -->
+								<FontString name="$parentFont4Label" inherits="AchieveShadowNormalWhite" text="Shadow Large">
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentFont4" relativePoint="RIGHT">
+											<Offset><AbsDimension x="2" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+					</Frame> <!-- 1000 Achieves Frame-->
+
+					<Frame name="$parentAchievement2000" inherits="UnlockConfigBase">
+						<Anchors>
+							<Anchor>
+								<Offset><AbsDimension x="166" y="-155"/></Offset>
+							</Anchor>
+						</Anchors>
+					</Frame>
+				</Frames> <!-- $parentConfigure subframes-->
+
+				<Layers>
+					<Layer level="ARTWORK">
+
+						<!-- Title for Configuration Window -->
+						<FontString name="$parentTitleText" inherits="AchieveNormalWhite" text="-=  Frostbolt Meter Configuration  =-">
+							<Anchors>
+								<Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
+									<Offset><AbsDimension x="0" y="-5"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<!-- Header for basic config info -->
+						<FontString name="$parentBasicHeader" inherits="MenuItemHeaderWhite" text="Basic">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+									<Offset><AbsDimension x="6" y="-35"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<!-- Header for Unlockable Configuration Items -->
+						<FontString name="$parentUnlockHeader" inherits="MenuItemHeaderWhite" text="Achievement Unlocks">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+									<Offset><AbsDimension x="6" y="-135"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<!-- Font String for resetting the meter -->
+						<FontString name="$parentResetText" inherits="MenuItemBlue" text="Reset?">
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentResetButton" relativePoint="RIGHT">
+									<Offset><AbsDimension x="2" y="0"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<!-- Font string that appears for 0 padding -->
+						<FontString name="$parentZeroPadText" inherits="MenuItemBlue" text="Toggle Zero Pad">
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentZeroPadButton" relativePoint="RIGHT">
+									<Offset><AbsDimension x="2" y="0"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<!-- Label for achievement popups off -->
+						<FontString name="$parentToggleAchievesHeader" inherits="MenuItemBlue" text="Toggle Achievement Popups">
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="$parentToggleAchieves" relativePoint="RIGHT">
+									<Offset><AbsDimension x="2" y="0"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+					</Layer>
+				</Layers>
+
+			</Frame>  <!-- $parent Configure -->   
+		</Frames>  <!-- FrostboltMeterMain subframes -->
+	</Frame>  <!-- FrostboltMeterMain -->
+</Ui> <!-- TOP LEVEL -->
