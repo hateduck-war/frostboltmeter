@@ -264,7 +264,7 @@
 					<Anchor point="CENTER"/>
 				</Anchors>
 				<Size>
-					<AbsDimension x="600" y="300"/>
+					<AbsDimension x="645" y="300"/>
 				</Size>
 				
 				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" tile="false"/>
@@ -407,7 +407,9 @@
 								<Offset><AbsDimension x="6" y="-155"/></Offset>
 							</Anchor>
 						</Anchors>
-
+						
+						
+						
 						<Frames>
 							<Button name="$parentFont1" enableMouse="true" inherits="UIPanelButtonTemplate">
 								<Scripts>
@@ -514,16 +516,112 @@
 										</Anchor>
 									</Anchors>
 								</FontString>
-							</Layer>
+								<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" tile="false"/> -->
+
+							</Layer> <!-- ARTWORK -->
+							
+							<Layer level="BORDER">
+								<Texture file="Interface\DialogFrame\UI-DialogBox-Background-Dark" alpha="0.7">
+									<Size><AbsDimension x="150" y="130"/></Size>
+									<Anchors>
+										<Anchor point="CENTER" relativeT="$parentAchievement1000" relativePoint="CENTER"/>
+									</Anchors>
+								</Texture>
+							</Layer> <!-- BORDER -->
 						</Layers>
 					</Frame> <!-- 1000 Achieves Frame-->
 
-					<Frame name="$parentAchievement2000" inherits="UnlockConfigBase">
+					<Frame name="$parentAchievement2000Locked" inherits="UnlockConfigBase">
 						<Anchors>
 							<Anchor>
 								<Offset><AbsDimension x="166" y="-155"/></Offset>
 							</Anchor>
 						</Anchors>
+
+						<Layers>
+							<Layer level="ARTWORK">
+								
+								<!-- Label For Unlock Frame 2000 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="2000 - LOCKED!">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+								
+								<!-- Label For Unlock Frame 2000 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="COMING SOON">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="-20"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+					</Frame>
+
+					<Frame name="$parentAchievement4000Locked" inherits="UnlockConfigBase">
+						<Anchors>
+							<Anchor>
+								<Offset><AbsDimension x="326" y="-155"/></Offset>
+							</Anchor>
+						</Anchors>
+
+						<Layers>
+							<Layer level="ARTWORK">
+								
+								<!-- Label For Unlock Frame 4000 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="4000 - LOCKED!">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+								
+								<!-- Label For Unlock Frame 4000 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="COMING SOON">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="-20"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+					</Frame>
+
+					<Frame name="$parentAchievement8000Locked" inherits="UnlockConfigBase">
+						<Anchors>
+							<Anchor>
+								<Offset><AbsDimension x="486" y="-155"/></Offset>
+							</Anchor>
+						</Anchors>
+
+						<Layers>
+							<Layer level="ARTWORK">
+								
+								<!-- Label For Unlock Frame 82000 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="8000 - LOCKED!">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="0"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+								
+								<!-- Label For Unlock Frame 8000 bolts! -->
+								<FontString name="$parentLabel" inherits="NumberFontNormalLarge" text="COMING SOON">
+									<Anchors>
+										<Anchor point="CENTER" relativeTo="$parent">
+											<Offset><AbsDimension x="0" y="-20"/></Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
 					</Frame>
 				</Frames> <!-- $parentConfigure subframes-->
 

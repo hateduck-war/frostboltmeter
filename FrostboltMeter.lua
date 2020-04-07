@@ -1,6 +1,5 @@
 -- Frostbolt Meter
--- 14 Mar 2020 Original Commit
--- 04 APR 2020
+-- 14 Mar 2020
 -- Olgruff / Hateduck fun addons for fun
 
 -- Olgruff actual bolts 7673
@@ -148,7 +147,7 @@ function FrostboltMeterMain_OnEvent(self, event, ...)
 			-- If it was succesful spell cast event (cast bar finished)
 			if (eventType == "SPELL_CAST_SUCCESS") then
 				local  _,_,_,_,_,_,_,_,_,_,_, spellID, spellName, magSchool = CombatLogGetCurrentEventInfo()
-				print(spellName)
+				-- print(spellName)
 
 				-- If the spell was a frost bolt
 				if (string.find(spellName, "Frostbolt")) then
@@ -165,17 +164,17 @@ function FrostboltMeterMain_OnEvent(self, event, ...)
 
 			-- If the spell landed, or partial resisted, or was absorbed
 			elseif (eventType == "SPELL_DAMAGE") then
-				print("spell dmg codeblock")
+				-- print("spell dmg codeblock")
 				local  _,_,_,_,_,_,_,_,_,_,_, spellID, spellName, magSchool, amount, overkill, schoolAgain, 
 					   wasResisted, wasBlocked, wasAbsorbed, wasCrit = CombatLogGetCurrentEventInfo()
 				if (string.find(spellName, "Frostbolt") and wasCrit == true) then
-					print("Frostbolt Crit!")
+					-- print("Frostbolt Crit!")
 					-- Do stuff
 				end
 			-- Full Resist
 			elseif (eventType == "SPELL_MISSED") then
 				-- Save the miss
-				print("Full Resist")
+				-- print("Full Resist")
 			end
 		end 
 		

@@ -1,4 +1,4 @@
--- 04 APR 2020
+-- 23 MAR 2020
 -- Olgruff wants some action in his meter
 -- Olgruff wants noises and pictures and RP
 
@@ -23,7 +23,9 @@ frostyAchieveText[4000] =
 "Rumor has it there are creatures of fire and stone in the depths of Blackrock Mountain ".. 
 "only to be destroyed by the frozen heart of a caster such as yourself, "..frostbolterName.."."
 
-frostyAchieveText[8000] = "8000. You must have ice in your veins"
+frostyAchieveText[8000] = 
+"8000. You must have ice in your veins. You are "..
+"as cold as ice itself "..frostbolterName.."."
 
 frostyAchieveText[16000] = "16k. You're the price of a small car"
 
